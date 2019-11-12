@@ -2,6 +2,8 @@
 
 from sqlalchemy import Column, String, Integer
 from .entity import Entity, Base
+from marshmallow import Schema, fields
+
 
 class Box(Entity, Base):
     __tablename__ = 'boxes'
@@ -21,3 +23,17 @@ class Box(Entity, Base):
         self.width = width
         self.height = height
         self.length = length
+
+
+# here is using marshmallow lib, which is handling serialization and deserialization of JSON objects
+class BoxSchema(Schema):
+    id = fields.Number()
+    name = fields.Str()
+    description = fields.Str()
+    weight = fields.Float()
+    width = fields.Float()
+    height = fields.Float()
+    length = fields.Float()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
+    last_updated_by = fields.Str()
