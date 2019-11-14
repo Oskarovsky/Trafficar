@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request
 
 from flask_cors import CORS
-
 from .entities.entity import Session, engine, Base
 from .entities.box import Box, BoxSchema
+from .auth import AuthError, requires_auth
 
 
 # creating the Flask application
@@ -31,6 +31,7 @@ def get_boxes():
 
 
 @app.route('/boxes', methods=['POST'])
+@requires_auth
 def add_box():
     # mount exam object
     posted_box = BoxSchema(only=('name', 'description', 'weight', 'width', 'height', 'length'))\
@@ -49,21 +50,9 @@ def add_box():
     return jsonify(new_box), 201
 
 
+@app.errorhandler(AuthError)
+def handle_auth_error(ex):
+    response = jsonify(ex.error)
+    response.status_code = ex.status_code
+    return response
 
-# # check for existing data (it queries all instances of Box)
-# boxes = session.query(Box).all()
-#
-# if len(boxes) == 0:
-#     # create and persist dummy box
-#     bike_box = Box("Bike", "Sport bike for professional cyclist", 1210, 430, 222, 120, 'Oskar Slyk')
-#     session.add(bike_box)
-#     session.commit()
-#     session.close()
-#
-#     # reload boxes
-#     boxes = session.query(Box).all()
-#
-# # show existing boxes
-# print('### Boxes:')
-# for box in boxes:
-#     print(f'({box.id} {box.name} - {box.description} // PARAMETERS: {box.weight}, {box.width}, {box.height}, {box.length}')

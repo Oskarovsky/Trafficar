@@ -1,8 +1,9 @@
 import json
+
 from flask import request, _request_ctx_stack
 from functools import wraps
-from jose import jwt
 from urllib.request import urlopen
+from jose import jwt
 
 """Constants which are using to communicate with Auth0"""
 AUTH0_DOMAIN = 'oskarro.eu.auth0.com'
