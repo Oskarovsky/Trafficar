@@ -1,7 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Box} from "./box-model";
 import {BoxesApiService} from "./box-api.service";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'box',
@@ -11,6 +14,11 @@ import {BoxesApiService} from "./box-api.service";
 export class BoxListComponent implements OnInit, OnDestroy {
   boxesListSubs: Subscription;
   boxesList: Box[];
+  displayedColumns = ['id', 'name', 'description', 'weight', 'height', 'width', 'length'];
+  dataSource: MatTableDataSource<Box>;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private boxesApi: BoxesApiService) { }
 
@@ -22,6 +30,14 @@ export class BoxListComponent implements OnInit, OnDestroy {
       },
       console.error
     );
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   ngOnDestroy() {
