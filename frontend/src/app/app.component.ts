@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
-import {BoxesApiService} from "./boxes/boxes-api.service";
-import {Box} from "./boxes/box-model";
+import {BoxesApiService} from "./box/box-api.service";
+import {Box} from "./box/box-model";
 
 @Component({
   selector: 'app-root',
