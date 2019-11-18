@@ -1,0 +1,9 @@
+<div>
+  <h2>New Box</h2>
+  <label for="box-name">Name</label>
+  <input id="box-name" (keyup)="updateName($event)">
+  <label for="box-description">Description</label>
+  <input id="box-description" (keyup)="updateDescription($event)">
+  <button (click)="saveBox()">Save Box</button>
+</div>
+

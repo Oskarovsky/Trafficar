@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import { throwError } from 'rxjs';
 import {API_URL} from "../env";
 import {Observable} from 'rxjs'
 import {Box} from './box-model';
 import {catchError, retry} from "rxjs/operators";
+import * as Auth0 from 'auth0-web';
 
 
 @Injectable()
@@ -25,5 +26,13 @@ export class BoxesApiService {
       );
   }
 
-
+  saveBox(box: Box): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${Auth0.getAccessToken()}`
+      })
+    };
+    return this.http
+      .post(`${API_URL}/boxes`, box, httpOptions);
+  }
 }

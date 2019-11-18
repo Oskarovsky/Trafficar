@@ -5,6 +5,7 @@ import {BoxesApiService} from "./box-api.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
+import * as Auth0 from 'auth0-web';
 
 @Component({
   selector: 'box',
@@ -16,11 +17,16 @@ export class BoxListComponent implements OnInit, OnDestroy {
   boxesList: Box[];
   displayedColumns = ['id', 'name', 'description', 'weight', 'height', 'width', 'length'];
   dataSource: MatTableDataSource<Box>;
+  authenticated = false;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private boxesApi: BoxesApiService) { }
+
+  signIn = Auth0.signIn;
+  signOut = Auth0.signOut;
+  getProfile = Auth0.getProfile;
 
   ngOnInit() {
     this.boxesListSubs = this.boxesApi
