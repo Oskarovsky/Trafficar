@@ -36,6 +36,8 @@ export class BoxListComponent implements OnInit, OnDestroy {
       },
       console.error
     );
+    const self = this;
+    Auth0.subscribe((authenticated) => (self.authenticated = authenticated));
   }
 
   applyFilter(filterValue: string) {

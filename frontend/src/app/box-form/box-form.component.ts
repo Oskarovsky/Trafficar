@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {BoxesApiService} from "../box/box-api.service";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-box-form',
@@ -9,7 +10,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./box-form.component.css']
 })
 export class BoxFormComponent {
-    box = {
+  box = {
     name: '',
     description: '',
     weight: 0,
@@ -19,6 +20,7 @@ export class BoxFormComponent {
   };
 
   constructor(private boxesApi: BoxesApiService, private router: Router) { }
+
 
   updateName(event: any) {
     this.box.name = event.target.value;
@@ -36,7 +38,5 @@ export class BoxFormComponent {
         error => alert(error.message)
       );
   }
-
-
 
 }
