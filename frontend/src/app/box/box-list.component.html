@@ -1,7 +1,4 @@
 <button routerLink="/addBox">New Box</button>
-<button (click)="signIn()" *ngIf="!authenticated">Sign In</button>
-<button (click)="signOut()" *ngIf="authenticated">Sign Out</button>
-<p *ngIf="authenticated">Hello, {{getProfile().name}}</p>
 
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">

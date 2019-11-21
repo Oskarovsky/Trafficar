@@ -1,11 +1,84 @@
-<div>
-  <h2>New Box</h2>
-  <label for="box-name">Name</label>
-  <input id="box-name" (keyup)="updateName($event)">
-  <label for="box-description">Description</label>
-  <input id="box-description" (keyup)="updateDescription($event)">
-  <button (click)="saveBox()">Save Box</button>
-</div>
+<section>
+  <mat-card>
+      <mat-card-title>Add new box to list</mat-card-title>
+
+      <form [formGroup]="boxForm" autocomplete="off" novalidate (ngSubmit)="addBoxToList(boxForm.value)">
+
+        <mat-card-content>
+          <div style="margin-bottom: 8px">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Box's name" formControlName="name" id="name" (keyup)="updateName($event)">
+              <mat-hint align="end">Max 60 characters</mat-hint>
+              <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+              <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div style="margin-bottom: 8px">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Box's description" formControlName="description" id="description" (keyup)="updateDescription($event)">
+              <mat-hint align="end">Not more then 1000 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
+              <mat-error *ngIf="hasError('description', 'maxlength')">You have more than 1000 characters</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div style="margin-bottom: 8px">
+            <mat-form-field>
+              <input matInput type="number" placeholder="Weight" formControlName="weight" id="weight" (keyup)="updateWeight($event)">
+              <mat-hint align="end">Enter value in grams</mat-hint>
+              <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+              <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div style="margin-bottom: 8px">
+            <mat-form-field>
+              <input matInput type="number" placeholder="Width" formControlName="width" id="width" (keyup)="updateWidth($event)">
+              <mat-hint align="end">Enter value in centimeters</mat-hint>
+              <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+              <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div style="margin-bottom: 8px">
+            <mat-form-field>
+              <input matInput type="number" placeholder="Height" formControlName="height" id="height" (keyup)="updateHeight($event)">
+              <mat-hint align="end">Enter value in centimeters</mat-hint>
+              <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+              <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div style="margin-bottom: 8px">
+            <mat-form-field>
+              <input matInput type="number" placeholder="Length" formControlName="length" id="length" (keyup)="updateLength($event)">
+              <mat-hint align="end">Enter value in centimeters</mat-hint>
+              <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+              <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions align="center">
+          <button mat-raised-button color="primary">Create</button>
+          <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+</section>
+
+
+
+
+<!--<div>-->
+<!--  <h2>New Box</h2>-->
+<!--  <label for="box-name">Name</label>-->
+<!--  <input id="box-name" (keyup)="updateName($event)">-->
+<!--  <label for="box-description">Description</label>-->
+<!--  <input id="box-description" (keyup)="updateDescription($event)">-->
+<!--  <button (click)="saveBox()">Save Box</button>-->
+<!--</div>-->
 
 
 

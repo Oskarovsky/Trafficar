@@ -24,10 +24,6 @@ export class BoxListComponent implements OnInit, OnDestroy {
 
   constructor(private boxesApi: BoxesApiService) { }
 
-  signIn = Auth0.signIn;
-  signOut = Auth0.signOut;
-  getProfile = Auth0.getProfile;
-
   ngOnInit() {
     this.boxesListSubs = this.boxesApi
       .getBoxes()
@@ -36,8 +32,6 @@ export class BoxListComponent implements OnInit, OnDestroy {
       },
       console.error
     );
-    const self = this;
-    Auth0.subscribe((authenticated) => (self.authenticated = authenticated));
   }
 
   applyFilter(filterValue: string) {
