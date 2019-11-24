@@ -56,3 +56,11 @@ def handle_auth_error(ex):
     response.status_code = ex.status_code
     return response
 
+@app.route('/register', methods=['POST'])
+def register():
+    json_data = request.json
+    user = User(
+        email = json_data['email'],
+
+    )
+

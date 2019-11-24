@@ -7,12 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 
 // SERVICES
 import { BoxesApiService } from "./box/box-api.service";
+import {AuthService} from "./services/auth.service";
 
 // COMPONENTS
 import { AppComponent } from './app.component';
 import { BoxListComponent } from './box/box-list.component';
 import { BoxFormComponent } from './box-form/box-form.component';
 import { CallbackComponent } from './callback/callback.component';
+import { LoginComponent } from './login/login.component';
+
 
 // MATERIAL DESIGN
 import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
@@ -24,17 +27,22 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from "@angular/material/select";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
 
 // OTHERS
 import * as Auth0 from 'auth0-web';
 import {MatCardModule} from "@angular/material/card";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+
+
 
 
 const appRoutes: Routes = [
   {path: 'allBoxes', component: BoxListComponent},
   {path: 'addBox', component: BoxFormComponent},
   {path: 'callback', component: CallbackComponent},
+  {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
@@ -42,7 +50,8 @@ const appRoutes: Routes = [
     AppComponent,
     BoxListComponent,
     BoxFormComponent,
-    CallbackComponent
+    CallbackComponent,
+    LoginComponent
   ],
   imports: [
     // MODULES
@@ -68,8 +77,11 @@ const appRoutes: Routes = [
     MatNativeDateModule,
     MatCardModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    FormsModule,
   ],
-  providers: [BoxesApiService],
+  providers: [BoxesApiService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
