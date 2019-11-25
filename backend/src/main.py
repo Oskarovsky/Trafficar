@@ -5,11 +5,9 @@ from .entities.entity import Session, engine, Base
 from .entities.box import Box, BoxSchema
 from .auth import AuthError, requires_auth
 
-
 # creating the Flask application
 app = Flask(__name__)
 CORS(app)
-
 
 # generate database schema (if needed)
 Base.metadata.create_all(engine)
@@ -34,7 +32,7 @@ def get_boxes():
 @requires_auth
 def add_box():
     # mount exam object
-    posted_box = BoxSchema(only=('name', 'description', 'weight', 'width', 'height', 'length'))\
+    posted_box = BoxSchema(only=('name', 'description', 'weight', 'width', 'height', 'length', 'target_place'))\
         .load(request.get_json())
 
     box = Box(**posted_box, created_by='HTTP post request')
@@ -55,12 +53,3 @@ def handle_auth_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response
-
-@app.route('/register', methods=['POST'])
-def register():
-    json_data = request.json
-    user = User(
-        email = json_data['email'],
-
-    )
-

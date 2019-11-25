@@ -6,6 +6,7 @@ export class Box {
     public width: number,
     public height: number,
     public length: number,
+    public target_place: string,
     public _id?: number,
     public updatedAt?: Date,
     public createdAt?: Date,

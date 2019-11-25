@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 // SERVICES
 import { BoxesApiService } from "./box/box-api.service";
-import {AuthService} from "./services/auth.service";
 
 // COMPONENTS
 import { AppComponent } from './app.component';
@@ -81,7 +80,7 @@ const appRoutes: Routes = [
     MatMenuModule,
     FormsModule,
   ],
-  providers: [BoxesApiService, AuthService],
+  providers: [BoxesApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule {

@@ -19,6 +19,7 @@ export class BoxFormComponent implements OnInit {
     width: 0,
     height: 0,
     length: 0,
+    target_place: ''
   };
 
   constructor(private boxesApi: BoxesApiService, private router: Router,
@@ -32,6 +33,7 @@ export class BoxFormComponent implements OnInit {
       weight: new FormControl('',[Validators.required]),
       height: new FormControl('',[Validators.required]),
       length: new FormControl('',[Validators.required]),
+      target_place: new FormControl('', [Validators.required])
     });
   }
 
@@ -83,6 +85,10 @@ export class BoxFormComponent implements OnInit {
 
   updateLength(event: any) {
     this.box.length = event.target.value;
+  }
+
+  updateTargetPlace(event: any) {
+    this.box.target_place = event.target.value;
   }
 
 }

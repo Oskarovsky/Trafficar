@@ -14,8 +14,9 @@ class Box(Entity, Base):
     width = Column(Integer)
     height = Column(Integer)
     length = Column(Integer)
+    target_place = Column(String)
 
-    def __init__(self, name, description, weight, width, height, length, created_by):
+    def __init__(self, name, description, weight, width, height, length, target_place, created_by):
         Entity.__init__(self, created_by)
         self.name = name
         self.description = description
@@ -23,6 +24,7 @@ class Box(Entity, Base):
         self.width = width
         self.height = height
         self.length = length
+        self.target_place = target_place
 
 
 # here is using marshmallow lib, which is handling serialization and deserialization of JSON objects
@@ -34,6 +36,7 @@ class BoxSchema(Schema):
     width = fields.Float()
     height = fields.Float()
     length = fields.Float()
+    target_place = fields.Str()
     created_at = fields.DateTime()
     updated_at = fields.DateTime()
     last_updated_by = fields.Str()

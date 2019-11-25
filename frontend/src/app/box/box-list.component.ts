@@ -15,7 +15,7 @@ import * as Auth0 from 'auth0-web';
 export class BoxListComponent implements OnInit, OnDestroy {
   boxesListSubs: Subscription;
   boxesList: Box[];
-  displayedColumns = ['id', 'name', 'description', 'weight', 'height', 'width', 'length'];
+  displayedColumns = ['id', 'name', 'description', 'weight', 'height', 'width', 'length', 'target_place'];
   dataSource: MatTableDataSource<Box>;
   authenticated = false;
 

@@ -58,6 +58,15 @@
               <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>
             </mat-form-field>
           </div>
+
+          <div style="margin-bottom: 8px">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Target Place" formControlName="target_place" id="target_place" (keyup)="updateTargetPlace($event)">
+              <mat-hint align="end">Enter value in centimeters</mat-hint>
+              <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+            </mat-form-field>
+          </div>
+
         </mat-card-content>
 
         <mat-card-actions align="center">
