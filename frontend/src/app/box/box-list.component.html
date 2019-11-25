@@ -1,4 +1,4 @@
-<button routerLink="/addBox">New Box</button>
+<button routerLink="/addBox" *ngIf="authenticated">New Box</button>
 
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">

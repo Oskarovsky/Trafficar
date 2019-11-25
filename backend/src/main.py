@@ -3,14 +3,19 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from .entities.entity import Session, engine, Base
 from .entities.box import Box, BoxSchema
-from .auth import AuthError, requires_auth
+from .auth import AuthError, requires_auth, requires_role
+
 
 # creating the Flask application
 app = Flask(__name__)
 CORS(app)
 
+app.config['SECRET_KEY'] = '1234567890'
+
 # generate database schema (if needed)
-Base.metadata.create_all(engine)
+db = Base.metadata.create_all(engine)
+
+
 
 
 @app.route('/boxes')
@@ -46,6 +51,17 @@ def add_box():
     new_box = BoxSchema().dump(box)
     session.close()
     return jsonify(new_box), 201
+
+
+@app.route('/boxes/<boxId>', methods=['DELETE'])
+@requires_role('admin')
+def delete_exam(boxId):
+    session = Session()
+    box = session.query(Box).filter_by(id=boxId).first()
+    session.delete(box)
+    session.commit()
+    session.close()
+    return '', 201
 
 
 @app.errorhandler(AuthError)

@@ -46,4 +46,25 @@ export class BoxListComponent implements OnInit, OnDestroy {
     this.boxesListSubs.unsubscribe();
   }
 
+   delete(boxId: number) {
+    this.boxesApi
+      .deleteBox(boxId)
+      .subscribe(() => {
+        this.boxesListSubs = this.boxesApi
+          .getBoxes()
+          .subscribe(res => {
+              this.boxesList = res;
+            },
+            console.error
+          )
+      }, console.error);
+  }
+
+  isAdmin() {
+    if (!Auth0.isAuthenticated()) return false;
+
+    const roles = Auth0.getProfile()['https://trafficar.com/roles'];
+    return roles.includes('admin');
+  }
+
 }

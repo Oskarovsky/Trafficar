@@ -4,11 +4,14 @@ from flask import request, _request_ctx_stack
 from functools import wraps
 from urllib.request import urlopen
 from jose import jwt
+from flask import Blueprint
 
 """Constants which are using to communicate with Auth0"""
 AUTH0_DOMAIN = 'oskarro.eu.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'https://trafficar.com'
+
+
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
@@ -104,3 +107,26 @@ def requires_auth(f):
         }, 400)
 
     return decorated
+
+
+def requires_role(required_role):
+    def decorator(f):
+        def wrapper(**args):
+            token = get_token_auth_header()
+            unverified_claims = jwt.get_unverified_claims(token)
+
+            # search current token for the expected role
+            if unverified_claims.get('https://trafficar.com/roles'):
+                roles = unverified_claims['https://trafficar.com/roles']
+                for role in roles:
+                    if role == required_role:
+                        return f(**args)
+
+            raise AuthError({
+                'code': 'insuficient_roles',
+                'description': 'You do not have the roles needed to perform this operation.'
+            }, 401)
+
+        return wrapper
+
+    return decorator

@@ -1,2 +1,4 @@
 python-jose>=3.0.0
 pyjwt>=1.7.1
+Flask-Login==0.3.2
+Flask-SQLAlchemy==2.1
